@@ -57,7 +57,7 @@ Request body used for each size:
 }
 ```
 
-All sizes for a session are rendered in parallel. Results are fetched by the server and returned to the browser as data URLs, so the client can compare them pixel by pixel against the original photo, find each rendered earring, apply one shared crop, and draw the scale bar.
+All sizes for a session are rendered in parallel. Rendered images are served to the browser through a same-origin proxy (`/api/image`, restricted to YouCam result storage), so the client can compare them pixel by pixel against the original photo, find each rendered earring, apply one shared crop, and draw the scale bar.
 
 **Cost:** 1 API unit per render. A typical session (listed size plus the 0.75× and 1.25× ladder) uses 3 units.
 
@@ -102,23 +102,32 @@ Open <http://localhost:3000>, choose **Use the sample model** and a sample earri
 | `PORT` | No | Port to listen on (default `3000`) |
 | `SAMPLE_MODEL_URL` | No | Public URL of the sample model photo. If unset, the bundled photo is uploaded through the File API |
 
-### Deploying
+### Deploying to Vercel
 
-The app is a single Node process with no build step. On [Render](https://render.com), create a Web Service from this repository (or use the included `render.yaml`), set `YOUCAM_API_KEY`, and deploy. Any host that runs `node server.js` works the same way.
+The repository is ready for [Vercel](https://vercel.com) with no build step: static files are served from `public/`, and `api/render.js`, `api/image.js` and `api/health.js` run as serverless functions sharing `lib/`.
+
+1. Import the repository in Vercel (framework preset: **Other**).
+2. Add the environment variable `YOUCAM_API_KEY`.
+3. Deploy.
+
+Any host that can run `node server.js` works as well.
 
 ## Project structure
 
 ```
 errora/
-├── server.js            # HTTP server: static files + /api/render, keeps the API key server-side
-├── lib/youcam.js        # YouCam API client: file upload, earring try-on task, polling, error mapping
+├── server.js            # Local HTTP server: static files + API routes
+├── api/                 # Vercel serverless functions (render, image, health)
+├── lib/
+│   ├── youcam.js        # YouCam API client: file upload, earring try-on task, polling, error mapping
+│   └── render.js        # Shared render and image-proxy logic; keeps the API key server-side
 ├── public/
 │   ├── index.html       # Three-step interface
 │   ├── app.js           # Cropping, size handling, render request, change detection, scale bar
 │   ├── styles.css
 │   └── samples/         # Sample model and sample earrings
 ├── docs/                # Screenshots and demo video
-├── render.yaml          # One-click Render deployment
+├── vercel.json          # Vercel output directory and function settings
 └── .env.example
 ```
 
@@ -133,7 +142,7 @@ errora/
 }
 ```
 
-`selfie` and `earring` each accept either `{ "sample": "<id>" }` or `{ "dataUrl": "<JPEG or PNG data URL>" }`. The response is `{ "results": [{ "cm": 3.2, "image": "data:image/jpeg;base64,..." }] }`.
+`selfie` and `earring` each accept either `{ "sample": "<id>" }` or `{ "dataUrl": "<JPEG or PNG data URL>" }`. The response is `{ "results": [{ "cm": 3.2, "image": "/api/image?u=..." }] }`, where each `image` is a same-origin URL for the rendered photo.
 
 ## Limitations
 
@@ -144,7 +153,7 @@ errora/
 
 ## Privacy
 
-Photos are sent only to the YouCam API to produce the renders. The server keeps nothing: images are held in memory for the duration of a request, and rendered images are returned directly to the browser.
+Photos are sent only to the YouCam API to produce the renders. The server keeps nothing: images are held in memory for the duration of a request, and rendered images are streamed from YouCam's result storage to the browser.
 
 ## Sample assets
 

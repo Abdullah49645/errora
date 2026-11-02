@@ -1,0 +1,9 @@
+{
+  "outputDirectory": "public",
+  "functions": {
+    "api/render.js": {
+      "maxDuration": 60,
+      "includeFiles": "public/samples/**"
+    }
+  }
+}

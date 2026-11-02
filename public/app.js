@@ -1,7 +1,7 @@
 'use strict';
 
 const $ = (id) => document.getElementById(id);
-const MAX_SIDE = 1600;
+const MAX_SIDE = 1280;
 const CM_PER_UNIT = { mm: 0.1, cm: 1, in: 2.54 };
 
 const state = {
