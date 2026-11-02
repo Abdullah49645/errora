@@ -108,13 +108,13 @@ The repository is ready for [Vercel](https://vercel.com) with no build step: sta
 2. Add the environment variable `YOUCAM_API_KEY`.
 3. Deploy.
 
-Any host that can run `node server.js` works as well.
+Any host that can run `node dev-server.js` works as well.
 
 ## Project structure
 
 ```
 errora/
-├── server.js            # Local HTTP server: static files + API routes
+├── dev-server.js            # Local HTTP server: static files + API routes
 ├── api/                 # Vercel serverless functions (render, image, health)
 ├── lib/
 │   ├── youcam.js        # YouCam API client: file upload, earring try-on task, polling, error mapping

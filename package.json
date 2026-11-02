@@ -2,9 +2,8 @@
   "name": "errora",
   "version": "1.0.0",
   "description": "See earrings at their real size on your own ear, powered by the YouCam 2D Earring Virtual Try-On API.",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node dev-server.js"
   },
   "engines": {
     "node": ">=18"
