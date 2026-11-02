@@ -3,6 +3,8 @@
 > **Built for the [YouCam API Skin AI & eCommerce VTO Hackathon](https://youcam-api-skin-ai-ecommerce.devpost.com/)** (Perfect Corp. × Devpost, 2026)
 > **Category:** Jewelry & Watch · **YouCam API used:** AI 2D Earring Virtual Try-On (`/s2s/v2.0/task/2d-vto/earring`)
 
+**Live demo:** [errora.vercel.app](https://errora.vercel.app) · **Demo video:** [YouTube](https://youtu.be/uIEhxchYdHA)
+
 **See earrings at the size they really are, on your own ear.**
 Upload a screenshot of an earring from any online store, type in the size from the listing, and Errora renders it at that physical size on your photo, next to the same earring 25% smaller and 25% larger, with a 1 cm scale bar drawn at the scale of your ear.
 
