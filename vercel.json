@@ -1,9 +1,7 @@
 {
+  "framework": null,
   "outputDirectory": "public",
   "functions": {
-    "api/render.js": {
-      "maxDuration": 60,
-      "includeFiles": "public/samples/**"
-    }
+    "api/render.js": { "maxDuration": 60, "includeFiles": "public/samples/**" }
   }
 }
