@@ -8,8 +8,6 @@ Upload a screenshot of an earring from any online store, type in the size from t
 
 ![Errora results: a 3.2 cm pearl drop shown at 2.4, 3.2 and 4 cm on the same ear](docs/results.png)
 
-**Demo video:** [`docs/errora-demo.mp4`](docs/errora-demo.mp4) (2 minutes)
-
 ---
 
 ## The problem
@@ -126,7 +124,7 @@ errora/
 │   ├── app.js           # Cropping, size handling, render request, change detection, scale bar
 │   ├── styles.css
 │   └── samples/         # Sample model and sample earrings
-├── docs/                # Screenshots and demo video
+├── docs/                # Screenshots
 ├── vercel.json          # Vercel output directory and function settings
 └── .env.example
 ```
