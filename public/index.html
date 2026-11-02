@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Errora: see earrings at their real size on your ear</title>
+  <meta name="description" content="Paste any earring listing, enter its listed size, and see it rendered at that physical size on your own ear.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='18' r='9' fill='none' stroke='%23b0703c' stroke-width='3'/%3E%3Cpath d='M16 3v6' stroke='%23b0703c' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="brand"><span class="mark" aria-hidden="true"></span>Errora</div>
+    <h1>See earrings at the size they really are, on <em>your</em> ear.</h1>
+    <p class="lede">Product photos make a 12&nbsp;mm hoop and a 30&nbsp;mm hoop look the same. Upload a screenshot from any store, type in the size from the listing, and Errora renders it at that physical size on your own photo.</p>
+  </header>
+
+  <main>
+    <section class="step" id="step-selfie">
+      <div class="step-head"><span class="num">1</span><h2>Your photo</h2></div>
+      <p class="hint">Turn your head about 30° so your ear faces the camera, tuck your hair behind it, and keep your face in frame.</p>
+      <div class="row">
+        <label class="drop" id="selfie-drop">
+          <input type="file" id="selfie-input" accept="image/*">
+          <img id="selfie-preview" alt="" hidden>
+          <span class="drop-label" id="selfie-label">Upload a three-quarter-view photo</span>
+        </label>
+        <div class="side">
+          <button class="ghost" id="use-sample-model" type="button">Use the sample model</button>
+          <p class="small">Your photo is only sent to the YouCam API to render the try-on. Nothing is stored.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="step" id="step-earring">
+      <div class="step-head"><span class="num">2</span><h2>The earring</h2></div>
+      <p class="hint">Screenshot a product photo from any store. Drag a box around <strong>one</strong> earring; the engine ignores your size when two are visible.</p>
+      <div class="row">
+        <div class="crop-wrap" id="crop-wrap">
+          <canvas id="crop-canvas" width="360" height="360"></canvas>
+          <label class="crop-empty" id="crop-empty">
+            <input type="file" id="earring-input" accept="image/*">
+            <span>Upload an earring screenshot</span>
+          </label>
+        </div>
+        <div class="side">
+          <div class="samples">
+            <button class="ghost" type="button" data-sample="pearl-drop" data-size="3.2">Sample: pearl drop · 3.2 cm</button>
+            <button class="ghost" type="button" data-sample="diamond-stud" data-size="0.7">Sample: diamond stud · 7 mm</button>
+          </div>
+          <div class="field">
+            <label for="size-value">Listed size <span class="small">(total length top to bottom; hoops: diameter)</span></label>
+            <div class="size-row">
+              <input id="size-value" type="number" min="0.1" step="0.1" placeholder="e.g. 25" inputmode="decimal">
+              <select id="size-unit" aria-label="Unit">
+                <option value="mm">mm</option>
+                <option value="cm" selected>cm</option>
+                <option value="in">in</option>
+              </select>
+            </div>
+          </div>
+          <div class="field inline">
+            <label for="ear">Ear in your photo</label>
+            <select id="ear">
+              <option value="right">Right ear</option>
+              <option value="left">Left ear</option>
+            </select>
+          </div>
+          <label class="check"><input type="checkbox" id="ladder" checked> Also show 25% smaller and larger</label>
+          <button class="primary" id="render" type="button" disabled>Show me the actual size</button>
+          <p class="status" id="status" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="step" id="results" hidden>
+      <div class="step-head"><span class="num">3</span><h2>On your ear</h2></div>
+      <p class="hint" id="results-hint"></p>
+      <div class="cards" id="cards"></div>
+      <details class="full">
+        <summary>Show full photos</summary>
+        <div class="fulls" id="fulls"></div>
+      </details>
+    </section>
+
+    <aside class="note">
+      <h3>How accurate is it?</h3>
+      <p>Errora uses the YouCam 2D Earring Virtual Try-On engine, which accepts a physical size in centimetres (<code>earring_scale</code>) and scales the earring to your ear in the photo. In our tests, sizes rendered in exact proportion: 1.5, 3 and 6&nbsp;cm came out at a 1&nbsp;:&nbsp;2&nbsp;:&nbsp;4 ratio. Comparisons between sizes are therefore reliable. Absolute size assumes typical ear proportions, so treat it as a close approximation rather than a guarantee.</p>
+    </aside>
+  </main>
+
+  <footer>
+    <p>Built for the YouCam API Skin AI &amp; eCommerce VTO Hackathon · Powered by the <a href="https://docs.perfectcorp.com/" target="_blank" rel="noopener">YouCam API</a></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

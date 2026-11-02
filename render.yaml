@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: errora
+    runtime: node
+    plan: free
+    buildCommand: "true"
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: YOUCAM_API_KEY
+        sync: false
